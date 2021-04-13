@@ -11,16 +11,17 @@
     	taille_s1: entier
     	taille_s2: entier
     début
-		  Afficher "Saisissez une première chaine"
-		  Saisir s1
-		  Afficher Saissisez une deuxième chaine"
-		  Saisir s2
-		  Affecter à taille_s1: taille(s1)
-		  Affecter à taille_s2: taille(s2)
-		  si taille_s1 * 2 = taille_s2 alors
+			Afficher "Saisissez une première chaine"
+			Saisir s1
+			Afficher Saissisez une deuxième chaine"
+			Saisir s2
+			Affecter à taille_s1: taille(s1)
+			Affecter à taille_s2: taille(s2)
+			si taille_s1 * 2 = taille_s2 alors
 			  Afficher "La première chaine est 2 fois plus grande que la deuxième"
-		  sinon
+			sinon
 			  Afficher "La première chaine n'est pas 2 fois plus grande que la deuxième"
+			finsi
 	fin
 
 ## Exercice #2
