@@ -140,7 +140,7 @@
 			pour i de 1 à 3
 			   /* 1 fois par jour, x7 */
 				pour j de 1 à 7 
-					/* 1 fois par heure, x15 */
+					/* 1 fois par heure, x24 */
 					pour k de 1 à 24 de
 						si k >= 1 et k <= 15 alors 
 							this.eat()
@@ -269,15 +269,15 @@
 		
 ## JavaScript
 
-Initialiser le projet avec Docker:
+**Initialiser le projet avec Docker:**
 
 	docker run -ti --rm -v "$PWD":/app -w /app node:latest npm init
 
-Installer scanf avec Docker:
+**Installer scanf avec Docker:**
 
 	docker run -ti --rm -v "$PWD":/app -w /app node:latest npm install scanf
 
-Lancer un service Node.js:
+**Lancer un service Node.js:**
 
 	docker run -ti --rm -v "$PWD":/app -w /app node:latest node index.js
 
