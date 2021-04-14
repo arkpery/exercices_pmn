@@ -260,3 +260,18 @@
 		Afficher c1.str()
 	fin
 	
+		
+## JavaScript
+
+Initialiser le projet avec Docker:
+
+	docker run -ti --rm -v "$PWD":/app -w /app node:latest npm init
+
+Installer scanf avec Docker:
+
+	docker run -ti --rm -v "$PWD":/app -w /app node:latest npm install scanf
+
+Lancer un service Node.js:
+
+	docker run -ti --rm -v "$PWD":/app -w /app node:latest node index.js
+
