@@ -40,7 +40,7 @@ class Hippopotame {
                     this.swim();
                 }
             } else if (date_iterator >= momentInNineteenHours) {
-                console.log(this.toString());
+                console.log(`${this}`);
             } else if (date_iterator >= momentInNextDays) {
                 start_day = parseInt(Date.now() / 1000, 10);
             }
