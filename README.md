@@ -60,7 +60,7 @@
 		Affecter à nb: 0
 		tantque index < 5
 			Saisir tmp
-			si tmp > nb alors
+			si tmp > tab[nb] alors
 				Affecter à nb: index
 			finsi
 			Affecter à somme: somme + tmp
