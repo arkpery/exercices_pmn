@@ -18,8 +18,8 @@
 			Saisir s2
 			Affecter à taille_s1: taille(s1)
 			Affecter à taille_s2: taille(s2)
-			si taille_s1 = taille_s2 * 2 alors
-			  Afficher "La première chaine est 2 fois plus grande que la deuxième"
+			si taille_s1 >= taille_s2 * 2 alors
+			  Afficher "La première chaine est au moins 2 fois plus grande que la deuxième"
 			sinon
 			  Afficher "La première chaine n'est pas 2 fois plus grande que la deuxième"
 			finsi
@@ -111,24 +111,26 @@
 
 		fonction timestamp_run()
 		debut
-			Affecter d1: Date.now()
-			Affecter d2: d1
-			Affecter d3: d2
-		    tant que ((d2 - d1) < (3600 * 24 * 7 * 3))
-				si (d2 - d3) >= 0 et (d2 - d3) < (3600 * 15) alors
-					si (((d2 - d1) % 3600) = 0)) alors
+			Affecter start: Date.now() // in seconds
+			Affecter start_iterator: start
+			Affecter start_day: start
+			Affecter three_weeks: 3600 * 24 * 7 * 3
+
+		    tant que ((start_iterator - start) < three_weeks)
+				si (start_iterator - start_day) >= 0 et (start_iterator - start_day) < (3600 * 15) alors
+					si (((start_iterator - start) % 3600) = 0)) alors // per hour
 						this.eat()
 						this.eat()
 						this.swim()
 						this.swim()
 						this.swim()
 					finsi
-				sinon si (d2 - d3) >= (3600 * 24) alors
-					Affecter à d3: Date.now()
-				sinon si ((d2 - d3) / 3600) = 19 alors
+				sinon si (start_iterator - start_day) >= (3600 * 24) alors //the next day
+					Affecter à start_day: Date.now() // in seconds
+				sinon si ((start_iterator - start_day) / 3600) = 19 alors //at the night
 					Afficher this.str()
 				finsi
-				Affecter à d2: Date.now()
+				Affecter à start_iterator: Date.now()
 			fintantque
 		fin
 	
@@ -139,12 +141,16 @@
 			   /* 1 fois par jour, x7 */
 				pour j de 1 à 7 
 					/* 1 fois par heure, x15 */
-					pour k de 1 à 15 de 
-						this.eat()
-						this.eat()
-						this.swim()
-						this.swim()
-						this.swim()
+					pour k de 1 à 24 de
+						si k >= 1 et k <= 15 alors 
+							this.eat()
+							this.eat()
+							this.swim()
+							this.swim()
+							this.swim()
+						sinon si k == 19 alors
+							Afficher this.str()
+						finsi
 					finpour
 				finpour
 			finpour
