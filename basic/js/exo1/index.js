@@ -15,7 +15,7 @@ const scanf = require("scanf");
             inputs.push(scanf("%S"));
         }
         if (inputs[0].length >= inputs[1].length * 2){
-            console.log("La première chaine est deux fois plus grande que la deuxième.");
+            console.log("La première chaine est au moins deux fois plus grande que la deuxième.");
         }
         else {
             console.log("La première chaine n'est pas deux fois plus grande que la deuxième.");
