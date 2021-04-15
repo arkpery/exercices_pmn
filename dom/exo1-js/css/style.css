@@ -1,0 +1,48 @@
+.btn {
+    padding: 20px;
+    border:none;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.btn-action {
+    border-radius: 3px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, rgba(189,70,4,1) 17%, rgba(195,172,57,1) 44%, rgba(233,202,90,1) 82%);
+    color: white;
+}
+
+.btn:active {
+    transform: scale(1.2);
+}
+
+button:focus {
+    outline: 0.5px solid #fff;
+}
+
+#word span {
+    font-size: 50px;
+    padding: 30px;
+}
+
+#word {
+    align-self: center;
+}
+
+.error {
+    color: red;
+    align-self: center;
+    font-size: 21px;
+    padding: 12px;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#container {
+    align-self: center;
+}

@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "1b85d2b3-a332-401a-a7f9-e0bc661dbc2c",
+		"name": "PMN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Missions informations",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "24490a79-92bd-4244-9e56-d8b5765d50b3",
+						"exec": [
+							"pm.environment.set(\"serial\",  \"C113\");",
+							"pm.environment.set(\"defaultMission\",  \"CRS-17\");",
+							"",
+							"pm.sendRequest(\"https://api.spacexdata.com/v3/capsules/\" + pm.environment.get(\"serial\") + \"?id=true\", function (err, response) {",
+							"    var json = response.json();",
+							"    var missions = json.missions;",
+							"",
+							"    if (missions.length > 0){",
+							"        var mission = missions[0];",
+							"        var fn = mission.flight",
+							"",
+							"        pm.sendRequest(\"https://api.spacexdata.com/v3/launches/\" + fn + \"?id=true\", function (err, response) {",
+							"            var json = response.json();",
+							"",
+							"            pm.environment.set(\"mission_id\",  json.mission_id[0]);",
+							"        });",
+							"    }",
+							"    else {",
+							"        pm.environment.set(\"mission_id\", pm.environment.get(\"defaultMission\"));",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spacexdata.com/v3/missions/{{mission_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spacexdata",
+						"com"
+					],
+					"path": [
+						"v3",
+						"missions",
+						"{{mission_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Launches information",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spacexdata.com/v3/launches?launch_year=2016&limit=3",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spacexdata",
+						"com"
+					],
+					"path": [
+						"v3",
+						"launches"
+					],
+					"query": [
+						{
+							"key": "launch_year",
+							"value": "2016"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rockets informations on flight number 22",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "340f743b-4a6b-4245-9b41-0d750b06530c",
+						"exec": [
+							"var flightNumber = 22;",
+							"",
+							"pm.sendRequest(\"https://api.spacexdata.com/v3/launches/\" + 22, function(err, response){",
+							"    var json = response.json();",
+							"    var rocket_id = json.rocket.rocket_id;",
+							"",
+							"    pm.environment.set(\"rocket_id\", rocket_id);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spacexdata.com/v3/rockets/{{rocket_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spacexdata",
+						"com"
+					],
+					"path": [
+						"v3",
+						"rockets",
+						"{{rocket_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

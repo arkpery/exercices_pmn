@@ -267,7 +267,7 @@
 	fin
 	
 		
-## JavaScript
+## JavaScript - Node.js
 
 **Initialiser le projet avec Docker:**
 
