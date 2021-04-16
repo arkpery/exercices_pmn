@@ -74,7 +74,7 @@
 						"id": "07339f71-3cbd-427f-8657-896b29606f22",
 						"exec": [
 							"pm.sendRequest({",
-							"    url: pm.environment.get(\"BASE_HOST\") + \"/\" + pm.environment.get(\"POST_RESOURCE\"),",
+							"    url: pm.variables.get(\"BASE_HOST\") + \"/\" + pm.variables.get(\"POST_RESOURCE\"),",
 							"    method: \"GET\",",
 							"}, function (err, response) {",
 							"    if (!err){",
@@ -123,7 +123,7 @@
 						"id": "d05c4df3-740a-46a9-9ce1-a1d9149af21a",
 						"exec": [
 							"pm.sendRequest({",
-							"    url: pm.environment.get(\"BASE_HOST\") + \"/\" + pm.environment.get(\"POST_RESOURCE\"),",
+							"    url: pm.variables.get(\"BASE_HOST\") + \"/\" + pm.variables.get(\"POST_RESOURCE\"),",
 							"    method: \"GET\",",
 							"}, function (err, response) {",
 							"    if (!err){",
@@ -172,7 +172,7 @@
 						"id": "9f05d7fe-96d4-4680-9fc0-249de73a09a5",
 						"exec": [
 							"pm.sendRequest({",
-							"    url: pm.environment.get(\"BASE_HOST\") + \"/\" + pm.environment.get(\"POST_RESOURCE\"),",
+							"    url: pm.variables.get(\"BASE_HOST\") + \"/\" + pm.variables.get(\"POST_RESOURCE\"),",
 							"    method: \"GET\",",
 							"}, function (err, response) {",
 							"    if (!err){",
@@ -247,12 +247,12 @@
 	],
 	"variable": [
 		{
-			"id": "5f4a5f17-36e5-4814-9ed0-c5fa2cb6506f",
+			"id": "38e090d5-bb45-45c0-a6a1-ba69398eac1e",
 			"key": "BASE_HOST",
 			"value": "http://localhost:3000"
 		},
 		{
-			"id": "c0a5d397-7e45-4871-a141-235b42f956cd",
+			"id": "b8928692-328f-4105-a5f0-2cc803e375af",
 			"key": "POST_RESOURCE",
 			"value": "posts"
 		}
