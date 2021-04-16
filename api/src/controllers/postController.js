@@ -54,7 +54,9 @@ exports.updateAPost = (req, res) => {
     };
 
     arg._id = filter._id;
-    Post.updateOne(filter, req.body, (error, post) => {
+    Post.findOneAndUpdate(filter, req.body, {
+        new: true
+    }, (error, post) => {
         if (error) {
             res.status(500);
             console.log(error);
@@ -62,20 +64,13 @@ exports.updateAPost = (req, res) => {
                 message: "Erreur serveur."
             });
         } else {
-            if (post.ok){
-                res.status(200).json(arg);
-            }
-            else {
-                res.status(400).json({
-                    message: "Error sur la mise à jour des données"
-                })
-            }
+            res.status(200).json(post);
         }
     });
 };
 
 exports.deleteAPost = (req, res) => {
-    Post.deleteOne({
+    Post.findOneAndRemove({
         "_id": req.params.id_post
     }, (error, post) => {
         if (error) {
