@@ -1,5 +1,7 @@
 const Post = require('../models/postModel');
 
+const spaceXApiProvider = require('../providers/spaceXApiProvider');
+
 exports.listAllPosts = (req, res) => {
     Post.find({}, (error, posts) => {
         if (error) {
@@ -18,19 +20,36 @@ exports.listAllPosts = (req, res) => {
 exports.createAPost = (req, res) => {
     let newPost = new Post(req.body);
 
-    newPost.save((error, post) => {
-        if (error) {
-            res.status(500);
-            console.log(error);
-            res.json({
-                message: "Erreur serveur."
-            });
-        } else {
-            res.status(201);
-            res.json(post);
+    newPost.like = 0;
+    newPost.dislike = 0;
+    newPost.views = 1;
+    // let lastMission = spaceXApiProvider.getLastMission();
+    let lastLaunche = spaceXApiProvider.getLastLaunche();
+
+    // lastMission.then(response => {
+    lastLaunche.then(response => {
+
+
+        if (!newPost.content) {
+            console.log(response)
+            // newPost.content = response.description;
+            newPost.content = response.details;
         }
+
+        newPost.save((error, post) => {
+            if (error) {
+                res.status(500);
+                console.log(error);
+                res.json({
+                    message: "Erreur serveur."
+                });
+            } else {
+                res.status(201);
+                res.json(post);
+            }
+        });
     });
-};
+}
 
 exports.getAPost = (req, res) => {
     Post.findById(req.params.id_post, (error, post) => {
@@ -41,20 +60,27 @@ exports.getAPost = (req, res) => {
                 message: "Erreur serveur."
             });
         } else {
-            res.status(200);
-            res.json(post);
+            post.views++;
+            Post.findByIdAndUpdate(req.params.id_post, post, {
+                new: true
+            }, (error, post) => {
+                if (error) {
+                    res.status(500);
+                    console.log(error);
+                    res.json({
+                        message: "Erreur serveur."
+                    });
+                } else {
+                    res.status(200);
+                    res.json(post);
+                }
+            });
         }
     });
 };
 
 exports.updateAPost = (req, res) => {
-    const arg = req.body;
-    const filter = {
-        "_id": req.params.id_post
-    };
-
-    arg._id = filter._id;
-    Post.findOneAndUpdate(filter, req.body, {
+    Post.findByIdAndUpdate(req.params.id_post, doc, {
         new: true
     }, (error, post) => {
         if (error) {
@@ -64,15 +90,62 @@ exports.updateAPost = (req, res) => {
                 message: "Erreur serveur."
             });
         } else {
-            res.status(200).json(post);
+            res.status(200);
+            res.json(post);
         }
     });
 };
 
+exports.likeAPost = (req, res) => {
+    Post.findById(req.params.id_post, (err, doc) => {
+        if (err) {
+            res.status(500);
+        }
+
+        doc.like++;
+        Post.findByIdAndUpdate(req.params.id_post, doc, {
+            new: true
+        }, (error, post) => {
+            if (error) {
+                res.status(500);
+                console.log(error);
+                res.json({
+                    message: "Erreur serveur."
+                });
+            } else {
+                res.status(200);
+                res.json(post);
+            }
+        });
+    });
+};
+
+exports.dislikeAPost = (req, res) => {
+    Post.findById(req.params.id_post, (err, doc) => {
+        if (err) {
+            res.status(500);
+        }
+
+        doc.dislike++;
+        Post.findByIdAndUpdate(req.params.id_post, doc, {
+            new: true
+        }, (error, post) => {
+            if (error) {
+                res.status(500);
+                console.log(error);
+                res.json({
+                    message: "Erreur serveur."
+                });
+            } else {
+                res.status(200);
+                res.json(post);
+            }
+        });
+    });
+};
+
 exports.deleteAPost = (req, res) => {
-    Post.findOneAndRemove({
-        "_id": req.params.id_post
-    }, (error, post) => {
+    Post.findByIdAndDelete(req.params.id_post, (error) => {
         if (error) {
             res.status(500);
             console.log(error);
@@ -82,8 +155,8 @@ exports.deleteAPost = (req, res) => {
         } else {
             res.status(200);
             res.json({
-                message: "post deleted"
+                message: "Article supprimé"
             });
         }
     });
-};
+}
