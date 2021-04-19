@@ -15,7 +15,7 @@ exports.listAllPosts = (req, res) => {
             res.json(posts);
         }
     });
-}
+};
 
 exports.createAPost = (req, res) => {
     let newPost = new Post(req.body);
@@ -49,7 +49,7 @@ exports.createAPost = (req, res) => {
             }
         });
     });
-}
+};
 
 exports.getAPost = (req, res) => {
     Post.findById(req.params.id_post, (error, post) => {

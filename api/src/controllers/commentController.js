@@ -16,7 +16,7 @@ exports.listAllComments = (req, res) => {
             res.json(comments);
         }
     });
-}
+};
 
 exports.createAComment = (req, res) => {
     const body = req.body;
@@ -32,18 +32,11 @@ exports.createAComment = (req, res) => {
                 message: "Erreur serveur."
             });
         } else {
-            Post.findById(comment.id_post, (err, post) => {
-                if (!post.linked_comments_id) {
-                    post.linked_comments_id = [];
-                }
-                post.linked_comments_id.push(comment._id);
-                post.save()
-                res.status(201);
-                res.json(comment);
-            });
+            res.status(201);
+            res.json(comment);
         }
     });
-}
+};
 
 exports.getAComment = (req, res) => {
     Comment.findById(req.params.id_comment, (error, comment) => {
@@ -58,34 +51,24 @@ exports.getAComment = (req, res) => {
             res.json(comment);
         }
     })
-}
+};
 
 exports.updateAComment = (req, res) => {
-    Post.findById(req.body.id_post, (err, post) => {
-        if (err) {
+    const body = req.body;
+
+    Comment.findByIdAndUpdate(req.params.id_comment, body, {
+        new: true
+    }, (error, comment) => {
+        if (error) {
             res.status(500);
-            console.log(err);
+            console.log(error);
             res.json({
                 message: "Erreur serveur."
             });
-            return;
+        } else {
+            res.status(200);
+            res.json(comment);
         }
-        const body = req.body;
-
-        Comment.findByIdAndUpdate(req.params.id_comment, body, {
-            new: true
-        }, (error, comment) => {
-            if (error) {
-                res.status(500);
-                console.log(error);
-                res.json({
-                    message: "Erreur serveur."
-                });
-            } else {
-                res.status(200);
-                res.json(comment);
-            }
-        });
     });
 };
 
@@ -104,4 +87,4 @@ exports.deleteAComment = (req, res) => {
             });
         }
     });
-}
+};

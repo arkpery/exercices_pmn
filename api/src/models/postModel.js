@@ -19,12 +19,6 @@ let postSchema = new Schema({
     views: {
         type: Number
     },
-    linked_posts_id: {
-        type: Array
-    },
-    linked_comments_id: {
-        type: Array
-    },
     categories_id: {
         type: Array
     },
