@@ -1,4 +1,13 @@
 function start() {
+
+    function redirectOnConnect(){
+        var token = window.localStorage.getItem("token");
+
+        if (token && token.length){
+            window.location = "/post";
+        }
+    }
+
     $("form #register").on("click", function (event) {
         var email = $("form input#email").val();
         var password = $("form input#password").val();
@@ -42,6 +51,8 @@ function start() {
             }
         });
     });
+
+    redirectOnConnect();
 }
 
-$(window).on("load", start);
+$(window).on("created_register", start);

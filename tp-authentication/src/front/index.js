@@ -44,6 +44,63 @@ router.get("/error", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+    const data = fs.readFileSync(`${__dirname}/public/index.html`,  {
+        encoding: "utf8"
+    });
+
+    res.setHeader("Content-Type", "text/html");
+    res.end(data);
+});
+
+router.get("/register", (req, res) => {
+    const data = fs.readFileSync(`${__dirname}/public/index.html`,  {
+        encoding: "utf8"
+    });
+
+    res.setHeader("Content-Type", "text/html");
+    res.end(data);
+});
+
+router.get("/signout", (req, res) => {
+    const data = fs.readFileSync(`${__dirname}/public/index.html`,  {
+        encoding: "utf8"
+    });
+
+    res.setHeader("Content-Type", "text/html");
+    res.end(data);
+});
+
+router.get("/post", (req, res) => {
+    const data = fs.readFileSync(`${__dirname}/public/index.html`,  {
+        encoding: "utf8"
+    });
+
+    res.setHeader("Content-Type", "text/html");
+    res.end(data);
+});
+
+router.get("/admin/post", (req, res) => {
+    const data = fs.readFileSync(`${__dirname}/public/index.html`,  {
+        encoding: "utf8"
+    });
+
+    res.setHeader("Content-Type", "text/html");
+    res.end(data);
+});
+
+router.get("/post/create", (req, res) => {
+    const data = fs.readFileSync(`${__dirname}/public/index.html`,  {
+        encoding: "utf8"
+    });
+
+    res.setHeader("Content-Type", "text/html");
+    res.end(data);
+});
+
+
+/*
+
+router.get("/login", (req, res) => {
     const data = fs.readFileSync(`${__dirname}/user/login/index.html`,  {
         encoding: "utf8"
     });
@@ -78,6 +135,8 @@ router.get("/post/create", (req, res) => {
     res.setHeader("Content-Type", "text/html");
     res.end(data);
 });
+
+*/
 
 
 module.exports = router;

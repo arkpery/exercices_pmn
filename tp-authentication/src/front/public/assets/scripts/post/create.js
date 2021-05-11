@@ -1,19 +1,12 @@
 function start() {
 
-    $("#deco").on("click", function (event) {
-        event.preventDefault();
-
-        window.localStorage.clear();
-        window.location = "/login";
-    });
-
     $("#create").on("click", function () {
         var token = window.localStorage.getItem("token");
         var title = $("form input#title").val();
         var content = $("form textarea#content").val();
         var post = {
             title: title,
-            content: content
+            content: content.length === 0 || content.trim().length === 0 ? null : content
         };
 
         $.ajax({
@@ -40,4 +33,4 @@ function start() {
 
 }
 
-$(window).on("load", start);
+$(window).on("created_create_post", start);

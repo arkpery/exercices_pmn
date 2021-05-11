@@ -10,6 +10,7 @@ module.exports = (server) => {
         .post(authorize([Role.Admin]), postController.createAPost);
 
     server.route('/api/posts/:id_post') // req.params.id_post
+        .all(jwtMiddleware.verifyToken)
         .get(authorize([Role.Admin, Role.User]), postController.getAPost)
         .put(authorize([Role.Admin]), postController.updateAPost)
         .delete(authorize([Role.Admin]), postController.deleteAPost);

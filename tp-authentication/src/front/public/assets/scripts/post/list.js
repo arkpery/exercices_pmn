@@ -1,12 +1,6 @@
-function start() {
+function start(event) {
+    console.log(event);
     var token = window.localStorage.getItem("token");
-
-    $("#deco").on("click", function(event){
-        event.preventDefault();
-        
-        window.localStorage.clear();
-        window.location = "/login";
-    });
 
     $.ajax({
         method: "GET",
@@ -19,17 +13,13 @@ function start() {
             console.log(xhr);
             if (xhr.status === 200) {
                 var tab = data;
-                var template = '<div class="accordion-item w-100">\
-                                    <h2 class="accordion-header w-100"  id="headingOne" >\
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"\
-                                            aria-expanded="true" aria-controls="collapseOne">\
-                                            ((title))\
-                                        </button>\
+                var template = '<div class="card w-100 mb-4">\
+                                    <h2 class="card-header w-100"  id="headingOne" >\
+                                        ((title))\
                                     </h2>\
-                                    <div id="collapseOne" class="accordion-collapse collapse show">\
-                                        <div class="accordion-body">\
-                                            ((content))\
-                                        </div>\
+                                    <div id="collapseOne" class="card-body w-100">\
+                                        <p class="card-text">((content))</p>\
+                                        <p class="card-text"><small class="text-muted">((created_at))</small></p>\
                                     </div>\
                                 </div>';
 
@@ -38,7 +28,8 @@ function start() {
                     var str = template.replace("((title))", item.title);
 
                     str = str.replace("((content))", item.content);
-                    $("#post_list").append($(str));
+                    str = str.replace("((created_at))", item.created_at);
+                    $("main #post_list").append($(str));
                 }
             }
         },
@@ -50,4 +41,5 @@ function start() {
     });
 }
 
-$(window).on("load", start);
+$(window).on("created_post_list", start);
+$(window).on("created_admin_post_list", start);

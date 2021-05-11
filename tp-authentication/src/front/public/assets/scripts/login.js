@@ -1,4 +1,14 @@
 function start() {
+
+    function redirectOnConnect(){
+        var token = window.localStorage.getItem("token");
+
+        if (token && token.length){
+            window.location = "/post";
+        }
+    }
+
+
     $("form #connect").on("click", function (event) {
         var email = $("#email").val();
         var password = $("#password").val();
@@ -17,7 +27,31 @@ function start() {
                     var token = data.token;
 
                     window.localStorage.setItem("token", token);
-                    window.location = "/post";
+                    $.ajax({
+                        method: "GET",
+                        dataType: "json",
+                        url: "/api/user/right",
+                        headers: {
+                            "Authorization": token
+                        },
+                        success: function (data, status, xhr) {
+                            if (xhr.status === 200) {
+                                role = data.role;
+                                
+                                if (role === "USER"){
+                                    window.location = "/post";
+                                }
+                                else if (role === "ADMIN"){
+                                    window.location = "/admin/post";
+                                }
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            var message = xhr.responseJSON.message;
+            
+                            alert(message);
+                        }
+                    });
                 }
             },
             error: function (xhr, status, error) {
@@ -27,6 +61,8 @@ function start() {
             }
         });
     });
+
+    redirectOnConnect();
 }
 
-$(window).on("load", start);
+$(window).on("created_connect", start);

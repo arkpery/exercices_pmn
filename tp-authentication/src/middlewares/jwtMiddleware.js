@@ -14,6 +14,7 @@ exports.verifyToken = (req, res, next) => {
                 });
             } else {
                 req.user = payload.user;
+                console.log(req.user);
                 next();
             }
         })

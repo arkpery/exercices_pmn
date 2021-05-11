@@ -9,14 +9,13 @@ exports.userRegister = (req, res) => {
     let newUser = new User(o);
 
     bcrypt.hash(newUser.password, 10, (err, hash) => {
-        if (err){
+        if (err) {
             res.status(500);
             console.log(error);
             res.json({
                 message: "Erreur serveur."
             });
-        }
-        else{
+        } else {
             newUser.password = hash;
             newUser.save((error, user) => {
                 if (error) {
@@ -42,14 +41,13 @@ exports.adminRegister = (req, res) => {
     let newUser = new User(o);
 
     bcrypt.hash(newUser.password, 10, (err, hash) => {
-        if (err){
+        if (err) {
             res.status(500);
             console.log(error);
             res.json({
                 message: "Erreur serveur."
             });
-        }
-        else{
+        } else {
             newUser.password = hash;
             newUser.save((error, user) => {
                 if (error) {
@@ -68,6 +66,15 @@ exports.adminRegister = (req, res) => {
         }
     });
 };
+
+exports.userRight = (req, res) => {
+    const user = {
+        role: req.user.role
+    };
+
+    console.log(user);
+    res.json(user);
+}
 
 exports.userLogin = (req, res) => {
     // Rechercher l'utilisateur
@@ -88,40 +95,39 @@ exports.userLogin = (req, res) => {
             if (user != null) {
                 if (user.email === req.body.email) {
                     bcrypt
-                    .compare(req.body.password, user.password)
-                    .then((result) => {
-                        if (result){
-                            jwt.sign({
-                                user : {
-                                    id: user._id,
-                                    email: user.email,
-                                    role: user.role
-                                }
-                            }, process.env.JWT_KEY, {
-                                expiresIn: "30 days"
-                            }, (error, token) => {
-                                if (error) {
-                                    res.status(500);
-                                    console.log(error);
-                                    res.json({
-                                        message: "Erreur serveur."
-                                    });
-                                } else {
-                                    res.status(200);
-                                    res.json({
-                                        token
-                                    });
-                                }
-                            });
-                        }
-                        else {
-                            res.status(403);
-                            console.log(error);
-                            res.json({
-                                message: "Authentification incorrect."
-                            });
-                        }
-                    });
+                        .compare(req.body.password, user.password)
+                        .then((result) => {
+                            if (result) {
+                                jwt.sign({
+                                    user: {
+                                        id: user._id,
+                                        email: user.email,
+                                        role: user.role
+                                    }
+                                }, process.env.JWT_KEY, {
+                                    expiresIn: "30 days"
+                                }, (error, token) => {
+                                    if (error) {
+                                        res.status(500);
+                                        console.log(error);
+                                        res.json({
+                                            message: "Erreur serveur."
+                                        });
+                                    } else {
+                                        res.status(200);
+                                        res.json({
+                                            token
+                                        });
+                                    }
+                                });
+                            } else {
+                                res.status(403);
+                                console.log(error);
+                                res.json({
+                                    message: "Authentification incorrect."
+                                });
+                            }
+                        });
                 } else {
                     res.status(403);
                     console.log(error);
