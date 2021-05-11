@@ -4,11 +4,11 @@ function start() {
         var token = window.localStorage.getItem("token");
 
         if (token && token.length){
-            window.location = "/post";
+            window.location = "/#/post";
         }
     }
 
-    $("#register form #register").on("click", function (event) {
+    $("#register form #register").one("click", function (event) {
         var email = $("#register form input#email").val();
         var password = $("#register form input#password").val();
         var user = {
@@ -32,8 +32,10 @@ function start() {
                             if (xhr.status === 200) {
                                 var token = data.token;
 
+                                $("#register form input#email").val("");
+                                $("#register form input#password").val("");
                                 window.localStorage.setItem("token", token);
-                                window.location = "/post";
+                                window.location = "/#/post";
                             }
                         },
                         error: function (xhr, status, error) {

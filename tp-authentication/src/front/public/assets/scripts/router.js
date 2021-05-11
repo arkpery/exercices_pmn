@@ -44,7 +44,8 @@ function start() {
             var tmp = components[i];
             var id = "#" + tmp.id;
             
-            $(id + " > main").hide()
+            $(id + " *").off();
+            $(id + " > main").hide();
             $(id).addClass("d-none");
         }
         for (var i = 0; i < components.length; i++) {

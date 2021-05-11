@@ -9,7 +9,7 @@ function start() {
     }
 
 
-    $("#connect form #connect").on("click", function (event) {
+    $("#connect form #connect").one("click", function (event) {
         var email = $("#connect form #email").val();
         var password = $("#connect form #password").val();
         var user = {
@@ -38,6 +38,8 @@ function start() {
                             if (xhr.status === 200) {
                                 role = data.role;
                                 
+                                $("#connect form #email").val("");
+                                $("#connect form #password").val("");
                                 if (role === "USER"){
                                     window.location = "/#/post";
                                 }

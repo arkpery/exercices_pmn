@@ -1,6 +1,6 @@
 function start() {
 
-    $("#create_post form #create").on("click", function () {
+    $("#create_post form #create").one("click", function () {
         var token = window.localStorage.getItem("token");
         var title = $("#create_post form input#title").val();
         var content = $("#create_post form textarea#content").val();
