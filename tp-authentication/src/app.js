@@ -24,10 +24,6 @@ postRoute(server);
 const commentRoute = require('./routes/commentRoute');
 commentRoute(server);
 
-const front = require("./front/index");
-
-server.use(front);
-
 server.listen(port, hostname, () => {
     console.log(`The server is started on ${hostname}:${port}.`);
 });
