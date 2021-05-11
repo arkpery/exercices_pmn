@@ -34,6 +34,7 @@ router.get("/", (req, res) => {
     res.end(data);
 });
 
+/*
 router.get("/error", (req, res) => {
     const data = fs.readFileSync(`${__dirname}/public/error.html`,  {
         encoding: "utf8"

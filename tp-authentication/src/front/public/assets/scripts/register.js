@@ -8,9 +8,9 @@ function start() {
         }
     }
 
-    $("form #register").on("click", function (event) {
-        var email = $("form input#email").val();
-        var password = $("form input#password").val();
+    $("#register form #register").on("click", function (event) {
+        var email = $("#register form input#email").val();
+        var password = $("#register form input#password").val();
         var user = {
             email: email,
             password: password

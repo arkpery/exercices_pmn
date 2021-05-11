@@ -26,8 +26,9 @@ function start() {
         success: function (data, status, xhr) {
             if (xhr.status === 200) {
                 var ref = $("#home ul");
-                var els = [{url: "/post", name: "Articles"}, {url: "/signout", name: "Se déconnecter"}];
+                var els = [{url: "/#/", name: "Home"}, {url: "/#/post", name: "Articles"}, {url: "/#/signout", name: "Se déconnecter"}];
 
+                $("#home ul li").remove();
                 for (var i = 0; i < els.length; i++){
                     var el = els[i];
                     var li = createLi(el);
@@ -36,7 +37,7 @@ function start() {
                     ref.append(li);
                 }
                 if (data.role === "ADMIN"){
-                    var li = createLi("/post/create");
+                    var li = createLi("/#/post/create");
 
                     console.log(li);
                     ref.append(li);
@@ -45,8 +46,9 @@ function start() {
         },
         error: function (xhr, status, error) {
             var ref = $("#home ul");
-            var els = [{url: "/login", name: "Se connecter"}];
+            var els = [{url: "/#/", name: "Home"}, {url: "/#/login", name: "Se connecter"}];
 
+            $("#home ul li").remove();
             for (var i = 0; i < els.length; i++){
                 var el = els[i];
                 var li = createLi(el);

@@ -1,42 +1,53 @@
 function start() {
     var components = [{
-            url: "/",
+            url: "/#/",
             id: "home"
         },{
-            url: "/signout",
+            url: "/#/signout",
             id: "signout"
         },
         {
-            url: "/login",
+            url: "/#/login",
             id: "connect",
         },
         {
-            url: "/register",
+            url: "/#/register",
             id: "register"
         },
         {
-            url: "/post/create",
+            url: "/#/post/create",
             id: "create_post",
             roles: ["ADMIN"]
         },
         {
-            url: "/post",
+            url: "/#/post",
             id: "post_list",
             roles: ["ADMIN", "USER"]
         },
         {
-            url: "/admin/post",
+            url: "/#/admin/post",
             id: "admin_post_list",
             roles: ["ADMIN"]
         }
     ];
     var token = window.localStorage.getItem("token");
     var role = null;
+    var clones = [];
 
+    console.log("function trigger");
     function InitApp(components, role = null) {
-        var location = window.location.pathname || "/";
+        var location = (window.location.pathname || "/") + window.location.hash;
         var component = null;
 
+        console.log(window.location.hash);
+        console.log(location);
+        
+        for (var i = 0; i < components.length; i++){
+            var tmp = components[i];
+            var id = "#" + tmp.id;
+            
+            $(id).addClass("d-none");
+        }
         for (var i = 0; i < components.length; i++) {
             var tmp = components[i];
             var id = "#" + tmp.id;
@@ -45,15 +56,12 @@ function start() {
                 if (tmp.roles != null && tmp.roles.length > 0) {
                     if (tmp.roles.indexOf(role) > -1) {
                         component = tmp;
-                    }
-                    else {
-                        $(id).remove();
+                        $(id).removeClass("d-none");
                     }
                 } else {
                     component = tmp;
+                    $(id).removeClass("d-none");
                 }
-            } else {
-                $(id).remove();
             }
         }
 
@@ -123,3 +131,5 @@ function start() {
 }
 
 $(window).on("load", start);
+$(window).on("locationchange", start);
+$(window).on('hashchange', start);

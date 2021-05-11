@@ -9,9 +9,9 @@ function start() {
     }
 
 
-    $("form #connect").on("click", function (event) {
-        var email = $("#email").val();
-        var password = $("#password").val();
+    $("#connect form #connect").on("click", function (event) {
+        var email = $("#connect form #email").val();
+        var password = $("#connect form #password").val();
         var user = {
             email: email,
             password: password
@@ -39,10 +39,10 @@ function start() {
                                 role = data.role;
                                 
                                 if (role === "USER"){
-                                    window.location = "/post";
+                                    window.location = "/#/post";
                                 }
                                 else if (role === "ADMIN"){
-                                    window.location = "/admin/post";
+                                    window.location = "/#/admin/post";
                                 }
                             }
                         },

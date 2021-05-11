@@ -1,9 +1,9 @@
 function start() {
 
-    $("#create").on("click", function () {
+    $("#create_post form #create").on("click", function () {
         var token = window.localStorage.getItem("token");
-        var title = $("form input#title").val();
-        var content = $("form textarea#content").val();
+        var title = $("#create_post form input#title").val();
+        var content = $("#create_post form textarea#content").val();
         var post = {
             title: title,
             content: content.length === 0 || content.trim().length === 0 ? null : content
@@ -19,8 +19,8 @@ function start() {
             data: JSON.stringify(post),
             success: function (data, status, xhr) {
                 if (xhr.status === 201) {
-                    $("form input#title").val("");
-                    $("form textarea#content").val("");
+                    $("#create_post form input#title").val("");
+                    $("#create_post form textarea#content").val("");
                 }
             },
             error: function (xhr, status, error) {
