@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 
 const hostname = '0.0.0.0';
 const port = 3000;
@@ -11,6 +12,8 @@ mongoose.connect('mongodb://mongo/apinode');
 const bodyParser = require('body-parser');
 server.use(bodyParser.urlencoded());
 server.use(bodyParser.json());
+server.use(cors());
+
 
 const userRoute = require('./routes/userRoute');
 userRoute(server);

@@ -19,7 +19,7 @@ function start() {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: "/api/user/right",
+        url: "http://localhost:3000/api/user/right",
         headers: {
             "Authorization": token
         },

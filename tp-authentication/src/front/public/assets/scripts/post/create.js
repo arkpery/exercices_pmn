@@ -15,7 +15,7 @@ function start() {
                 "Authorization": token,
                 "Content-Type": "application/json;charset=UTF-8"
             },
-            url: "/api/posts",
+            url: "http://localhost:3000/api/posts",
             data: JSON.stringify(post),
             success: function (data, status, xhr) {
                 if (xhr.status === 201) {

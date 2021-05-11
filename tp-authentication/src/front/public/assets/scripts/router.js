@@ -36,16 +36,15 @@ function start() {
 
     console.log("function trigger");
     function InitApp(components, role = null) {
-        var location = (window.location.pathname || "/") + window.location.hash;
+        var location = (window.location.pathname || "/") + (window.location.hash || "#/");
         var component = null;
 
-        console.log(window.location.hash);
-        console.log(location);
-        
+        $(id + " > main").hide();
         for (var i = 0; i < components.length; i++){
             var tmp = components[i];
             var id = "#" + tmp.id;
             
+            $(id + " > main").hide()
             $(id).addClass("d-none");
         }
         for (var i = 0; i < components.length; i++) {
@@ -57,10 +56,12 @@ function start() {
                     if (tmp.roles.indexOf(role) > -1) {
                         component = tmp;
                         $(id).removeClass("d-none");
+                        $(id + " > main").fadeIn(800);
                     }
                 } else {
                     component = tmp;
                     $(id).removeClass("d-none");
+                    $(id + " > main").fadeIn(800);
                 }
             }
         }
@@ -97,7 +98,7 @@ function start() {
         $.ajax({
             method: "GET",
             dataType: "json",
-            url: "/api/user/right",
+            url: "http://localhost:3000/api/user/right",
             headers: {
                 "Authorization": token
             },

@@ -1,5 +1,12 @@
 version: '3.3'
 services:
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./src/front/public:/usr/share/nginx/html
+    
   node:
     container_name: project_node
     image: 'node:latest'
@@ -16,15 +23,10 @@ services:
       - './src:/home/node/app'
     links:
       - mongo
-    networks:
-      - my-network
+
   mongo:
     container_name: project_mongo
     image: mongo
     ports:
       - "27017:27017"
-    networks:
-      - my-network
-networks:
-  my-network:
-    driver: bridge
+

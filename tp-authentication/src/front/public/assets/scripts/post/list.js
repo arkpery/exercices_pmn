@@ -8,7 +8,7 @@ function start(event) {
         headers: {
             "Authorization": token
         },
-        url: "/api/posts",
+        url: "http://localhost:3000/api/posts",
         success: function (data, status, xhr) {
             console.log(xhr);
             if (xhr.status === 200) {

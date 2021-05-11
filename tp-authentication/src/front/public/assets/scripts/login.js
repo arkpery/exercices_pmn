@@ -20,7 +20,7 @@ function start() {
         $.ajax({
             method: "POST",
             contentType: "application/json;charset=utf-8",
-            url: "/api/user/login",
+            url: "http://localhost:3000/api/user/login",
             data: JSON.stringify(user),
             success: function (data, status, xhr) {
                 if (xhr.status === 200) {
@@ -30,7 +30,7 @@ function start() {
                     $.ajax({
                         method: "GET",
                         dataType: "json",
-                        url: "/api/user/right",
+                        url: "http://localhost:3000/api/user/right",
                         headers: {
                             "Authorization": token
                         },

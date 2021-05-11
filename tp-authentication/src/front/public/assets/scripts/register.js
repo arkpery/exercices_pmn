@@ -19,14 +19,14 @@ function start() {
         $.ajax({
             contentType: "application/json;charset=utf-8",
             method: "POST",
-            url: "/api/user/register",
+            url: "http://localhost:3000/api/user/register",
             data: JSON.stringify(user),
             success: function (data, status, xhr) {
                 if (xhr.status === 201) {
                     $.ajax({
                         method: "POST",
                         contentType: "application/json;charset=utf-8",
-                        url: "/api/user/login",
+                        url: "http://localhost:3000/api/user/login",
                         data: JSON.stringify(user),
                         success: function (data, status, xhr) {
                             if (xhr.status === 200) {
