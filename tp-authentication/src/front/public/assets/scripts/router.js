@@ -1,31 +1,31 @@
 function start() {
     var components = [{
-            url: "/#/",
+            url: "/",
             id: "home"
         },{
-            url: "/#/signout",
+            url: "/signout",
             id: "signout"
         },
         {
-            url: "/#/login",
+            url: "/login",
             id: "connect",
         },
         {
-            url: "/#/register",
+            url: "/register",
             id: "register"
         },
         {
-            url: "/#/post/create",
+            url: "/post/create",
             id: "create_post",
             roles: ["ADMIN"]
         },
         {
-            url: "/#/post",
+            url: "/post",
             id: "post_list",
             roles: ["ADMIN", "USER"]
         },
         {
-            url: "/#/admin/post",
+            url: "/admin/post",
             id: "admin_post_list",
             roles: ["ADMIN"]
         }
@@ -38,6 +38,7 @@ function start() {
     function InitApp(components, role = null) {
         var location = (window.location.pathname || "/") + (window.location.hash || "#/");
         var component = null;
+        var isHash = true;
 
         $(id + " > main").hide();
         for (var i = 0; i < components.length; i++){
@@ -51,8 +52,9 @@ function start() {
         for (var i = 0; i < components.length; i++) {
             var tmp = components[i];
             var id = "#" + tmp.id;
+            var tmpUrl = isHash ? "/#" + tmp.url : tmp.url;
 
-            if (tmp.url === location) {
+            if (tmpUrl === location) {
                 if (tmp.roles != null && tmp.roles.length > 0) {
                     if (tmp.roles.indexOf(role) > -1) {
                         component = tmp;
